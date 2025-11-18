@@ -15,13 +15,13 @@ COPY . .
 # Expose port
 EXPOSE 5100
 
-# THIS IS THE IMPORTANT PART — fixed command
+# Fixed Gunicorn command – NO COMMENTS inside the JSON array
 CMD ["gunicorn", \
      "app:app", \
      "--bind", "0.0.0.0:5100", \
-     "--workers", "1", \                  # 1 is safer with big models
+     "--workers", "1", \
      "--worker-class", "sync", \
-     "--timeout", "1800", \               # 30 minutes – enough even for 70B+ models
+     "--timeout", "1800", \
      "--graceful-timeout", "1800", \
      "--keep-alive", "5", \
      "--log-level", "info"]
