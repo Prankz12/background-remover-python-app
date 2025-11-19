@@ -46,20 +46,12 @@ pipeline {
                 }
             }
         }
-        stage('Docker Scout Image') {
-            steps {
-                script {
-                   withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
-                       sh 'docker-scout quickview tirucloud/background-remover-python-app:latest'
-                       sh 'docker-scout cves tirucloud/background-remover-python-app:latest'
-                       sh 'docker-scout recommendations tirucloud/background-remover-python-app:latest'
-                   }
-                }
-            }
-        }
+        
         stage ("Deploy to Container") {
             steps {
+                sh 'docker rm -f background-remover-python-app || true'
                 sh 'docker run -d --name background-remover-python-app -p 5100:5100 tirucloud/background-remover-python-app:latest'
-            }
-        }
+           }
+		}
+	}
 }
