@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy and install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-
+RUN pip install --no-cache-dir onnxruntime
 # Copy your code
 COPY . .
 
